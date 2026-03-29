@@ -2,134 +2,57 @@
 <html lang="de">
 <head>
   <meta charset="UTF-8" />
-  <title>Zeitfeld-Dissertation · Index</title>
+  <title>Zeitfeld-Dissertation · Start</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
   <style>
-    body { font-family: system-ui, -apple-system, sans-serif; margin: 0; padding: 2rem; background:#05060a; color:#f5f5f5; }
-    h1 { margin-top: 0; }
-    a { color:#7fd0ff; text-decoration:none; }
-    a:hover { text-decoration:underline; }
-    .grid { display:grid; gap:1rem; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); margin-top:1.5rem; }
-    .card { border:1px solid #222; border-radius:8px; padding:1rem 1.2rem; background:#0b0d14; }
-    .card h2 { margin:0 0 .4rem; font-size:1.05rem; }
-    .muted { color:#aaa; font-size:.9rem; }
+    body {
+      font-family: system-ui, sans-serif;
+      background: #0b0d14;
+      color: #e8e8e8;
+      padding: 2rem;
+    }
+    a { color: #7fd0ff; }
+    #fallback { display: none; }
   </style>
 
   <script>
-    async function tryLoadSiteIndex() {
-      // Basis-Pfad robust aus der Umgebung ableiten
+    async function init() {
+      // Dynamisch den Basis-Pfad bestimmen (funktioniert in jeder Umgebung)
       const path = window.location.pathname;
       const base = path.endsWith("index.html")
         ? path.replace(/index\.html$/, "")
         : (path.endsWith("/") ? path : path + "/");
 
-      const candidate = base + "site/index.html";
+      // Kandidat für die Web-Oberfläche
+      const target = base + "site/index.html";
 
       try {
-        const res = await fetch(candidate, { method: "HEAD" });
+        // Prüfen, ob site/index.html existiert
+        const res = await fetch(target, { method: "HEAD" });
+
         if (res.ok) {
-          // Umgebung respektieren, aber wenn vorhanden → zur Site-Oberfläche
-          window.location.href = candidate;
+          // Wenn vorhanden → sauber weiterleiten
+          window.location.href = target;
           return;
         }
-      } catch (e) {
-        // Ignorieren, wir fallen auf die Repository-Index-Ansicht zurück
+      } catch (err) {
+        // Ignorieren, wir zeigen Fallback
       }
 
-      // Wenn wir hier sind: Fallback-Ansicht anzeigen
-      document.getElementById("repo-index").style.display = "block";
+      // Wenn site/index.html nicht existiert → Fallback anzeigen
+      document.getElementById("fallback").style.display = "block";
     }
 
-    window.addEventListener("DOMContentLoaded", tryLoadSiteIndex);
+    window.addEventListener("DOMContentLoaded", init);
   </script>
 </head>
+
 <body>
-
-  <!-- Fallback: vollständige, kodierte Repository-Struktur -->
-  <main id="repo-index" style="display:none;">
-    <h1>Zeitfeld-Dissertation · Repository-Index</h1>
-    <p class="muted">
-      Diese Index-Seite bestimmt nichts hart, sondern versucht zuerst, die Weboberfläche unter <code>site/index.html</code>
-      zu laden. Falls das in der aktuellen Umgebung nicht möglich ist, siehst du hier die vollständige, logisch
-      kodierte Struktur des Repositories.
-    </p>
-
-    <section class="grid">
-      <div class="card">
-        <h2><code>docs/</code></h2>
-        <p class="muted">Dissertationsinhalte als Markdown & Text.</p>
-        <ul class="muted">
-          <li><a href="docs/abstract/abstract_v1.md">Abstract</a></li>
-          <li><a href="docs/chapters/">Kapitel (01–10)</a></li>
-          <li><a href="docs/hypotheses/hypothesenliste_v1.md">Hypothesenliste</a></li>
-          <li><a href="docs/argumentation/argumentationskette_einleitung.md">Argumentationskette</a></li>
-          <li><a href="docs/literature/">Literatur & Zitationen</a></li>
-        </ul>
-      </div>
-
-      <div class="card">
-        <h2><code>models/</code></h2>
-        <p class="muted">Mathematische, simulierte und Datenmodelle.</p>
-        <ul class="muted">
-          <li><a href="models/mathematical/">Mathematische Modelle (.tex)</a></li>
-          <li><a href="models/simulations/">Simulationen (.ipynb)</a></li>
-          <li><a href="models/data_models/">Datenmodelle (.json)</a></li>
-        </ul>
-      </div>
-
-      <div class="card">
-        <h2><code>data/</code></h2>
-        <p class="muted">Roh-, verarbeitete Daten & Metadaten.</p>
-        <ul class="muted">
-          <li><a href="data/raw/">Rohdaten (Gaia, NASA, Ephemeriden, GPS)</a></li>
-          <li><a href="data/processed/">Verarbeitete Daten</a></li>
-          <li><a href="data/metadata/datenquellen.md">Datenquellen</a></li>
-        </ul>
-      </div>
-
-      <div class="card">
-        <h2><code>analysis/</code></h2>
-        <p class="muted">Jupyter-Analysen des Zeitfeld-Modells.</p>
-        <ul class="muted">
-          <li><a href="analysis/zeitfeld_interferenz.ipynb">Zeitfeld-Interferenz</a></li>
-          <li><a href="analysis/relativistische_korrekturen.ipynb">Relativistische Korrekturen</a></li>
-          <li><a href="analysis/zyklusanalyse.ipynb">Zyklusanalyse</a></li>
-          <li><a href="analysis/galaktische_zeitgradienten.ipynb">Galaktische Zeitgradienten</a></li>
-        </ul>
-      </div>
-
-      <div class="card">
-        <h2><code>presentation/</code></h2>
-        <p class="muted">Verteidigung, Poster, Abbildungen.</p>
-        <ul class="muted">
-          <li><a href="presentation/slides/verteidigung/">Verteidigungsfolien</a></li>
-          <li><a href="presentation/posters/">Poster</a></li>
-          <li><a href="presentation/figures/">Abbildungen</a></li>
-        </ul>
-      </div>
-
-      <div class="card">
-        <h2><code>tools/</code></h2>
-        <p class="muted">Skripte & Utilities für das Projekt.</p>
-        <ul class="muted">
-          <li><a href="tools/scripts/">Skripte (Fourier, Tensor, Bereinigung)</a></li>
-          <li><a href="tools/utilities/">Utilities (Plotting, Konstanten, Astro)</a></li>
-        </ul>
-      </div>
-
-      <div class="card">
-        <h2><code>site/</code></h2>
-        <p class="muted">Weboberfläche der Zeitfeld-Dissertation.</p>
-        <ul class="muted">
-          <li><a href="site/index.html">Web-UI direkt öffnen</a></li>
-          <li><a href="site/navigation/navigation.json">Navigation JSON</a></li>
-          <li><a href="site/templates/">Templates</a></li>
-          <li><a href="site/libs/">Markdown & MathJax</a></li>
-        </ul>
-      </div>
-    </section>
-  </main>
-
+  <div id="fallback">
+    <h1>Zeitfeld-Dissertation</h1>
+    <p>Die Weboberfläche konnte nicht automatisch geladen werden.</p>
+    <p><a href="site/index.html">Manuell öffnen</a></p>
+  </div>
 </body>
 </html>
