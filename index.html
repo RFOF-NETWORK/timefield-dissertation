@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Zeitfeld‑Dissertation</title>
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="site/styles.css" />
+    <link rel="stylesheet" href="site/assets/css/fonts.css" />
+
+    <!-- Markdown Renderer -->
+    <script src="site/libs/markdown.min.js"></script>
+
+    <!-- MathJax -->
+    <script src="site/libs/mathjax-config.js"></script>
+    <script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <!-- App Logic -->
+    <script defer src="site/app.js"></script>
+</head>
+
+<body>
+
+    <!-- Header -->
+    <header id="header">
+        <img src="site/assets/logo.svg" alt="Zeitfeld Logo" class="logo" />
+        <h1>Zeitfeld‑Dissertation</h1>
+    </header>
+
+    <!-- Navigation -->
+    <nav id="navigation"></nav>
+
+    <!-- Main Content -->
+    <main id="content">
+        <h2>Lade Inhalte…</h2>
+    </main>
+
+    <!-- Router Script -->
+    <script>
+        // Load navigation.json
+        async function loadNavigation() {
+            const nav = document.getElementById("navigation");
+            const response = await fetch("site/navigation/navigation.json");
+            const items = await response.json();
+
+            nav.innerHTML = items.map(item => `
+                <a href="?page=${item.path}">
+                    <img src="site/assets/icons/${item.icon}" />
+                    ${item.title}
+                </a>
+            `).join("");
+        }
+
+        // Load Markdown or HTML content
+        async function loadContent() {
+            const params = new URLSearchParams(window.location.search);
+            const page = params.get("page") || "site/index.html";
+
+            let filePath;
+
+            // If page starts with docs/, load Markdown
+            if (page.startsWith("docs/")) {
+                filePath = page;
+                const response = await fetch(filePath);
+                const text = await response.text();
+                document.getElementById("content").innerHTML =
+                    markdown.toHTML(text);
+                MathJax.typesetPromise();
+            }
+
+            // Otherwise load HTML (site system)
+            else {
+                filePath = page;
+                const response = await fetch(filePath);
+                const html = await response.text();
+                document.getElementById("content").innerHTML = html;
+            }
+        }
+
+        // Initialize
+        loadNavigation();
+        loadContent();
+    </script>
+
+</body>
+</html>
