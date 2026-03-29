@@ -1,0 +1,257 @@
+/* site/styles.css */
+:root {
+  --bg: #05060a;
+  --bg-alt: #0b0d14;
+  --accent: #f5b841;
+  --accent-soft: #f5b84122;
+  --text: #f5f5f7;
+  --text-muted: #a0a4b8;
+  --border: #1b1f2b;
+  --sidebar-width: 270px;
+  --font-main: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-mono: "Fira Code", "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  background: radial-gradient(circle at top, #141726 0, #05060a 55%);
+  color: var(--text);
+  font-family: var(--font-main);
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+}
+
+#app {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* Header */
+
+.app-header {
+  border-bottom: 1px solid var(--border);
+  padding: 0.75rem 1.25rem;
+  background: linear-gradient(90deg, #05060a, #101322);
+}
+
+.logo-title {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.logo {
+  width: 40px;
+  height: 40px;
+}
+
+.title-block h1 {
+  margin: 0;
+  font-size: 1.2rem;
+  letter-spacing: 0.04em;
+}
+
+.title-block p {
+  margin: 0.1rem 0 0;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+/* Layout */
+
+.app-body {
+  display: flex;
+  flex: 1;
+  min-height: 0;
+}
+
+/* Sidebar */
+
+.sidebar {
+  width: var(--sidebar-width);
+  border-right: 1px solid var(--border);
+  background: linear-gradient(180deg, #05060a, #080a12);
+  padding: 0.75rem 0.5rem;
+  overflow-y: auto;
+}
+
+.sidebar ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.sidebar li {
+  margin: 0.1rem 0;
+}
+
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.35rem 0.6rem;
+  border-radius: 0.4rem;
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease, transform 0.05s ease;
+}
+
+.nav-item:hover {
+  background: var(--accent-soft);
+  color: var(--text);
+  transform: translateX(1px);
+}
+
+.nav-item.active {
+  background: var(--accent-soft);
+  color: var(--accent);
+}
+
+.nav-item img {
+  width: 16px;
+  height: 16px;
+}
+
+/* Content */
+
+.content {
+  flex: 1;
+  padding: 1rem 1.25rem;
+  overflow-y: auto;
+}
+
+#content-section {
+  max-width: 900px;
+  margin: 0 auto;
+  background: rgba(5, 6, 10, 0.9);
+  border-radius: 0.75rem;
+  border: 1px solid var(--border);
+  padding: 1.25rem 1.5rem 1.5rem;
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.6);
+}
+
+#content h1,
+#content h2,
+#content h3,
+#content h4 {
+  margin-top: 1.2rem;
+  margin-bottom: 0.4rem;
+}
+
+#content h1 {
+  font-size: 1.6rem;
+}
+
+#content h2 {
+  font-size: 1.3rem;
+}
+
+#content h3 {
+  font-size: 1.1rem;
+}
+
+#content p {
+  line-height: 1.6;
+  font-size: 0.95rem;
+  color: var(--text);
+}
+
+#content strong {
+  color: var(--accent);
+}
+
+#content code {
+  font-family: var(--font-mono);
+  background: #11131f;
+  padding: 0.1rem 0.25rem;
+  border-radius: 0.25rem;
+  font-size: 0.85rem;
+}
+
+#content pre code {
+  display: block;
+  padding: 0.75rem;
+  overflow-x: auto;
+}
+
+/* Lists */
+
+#content ul,
+#content ol {
+  padding-left: 1.2rem;
+}
+
+#content li {
+  margin: 0.2rem 0;
+}
+
+/* PyScript Demo */
+
+.pyscript-demo {
+  margin-top: 1.5rem;
+  padding-top: 1rem;
+  border-top: 1px dashed var(--border);
+}
+
+.pyscript-demo h3 {
+  margin-top: 0;
+}
+
+/* Footer */
+
+.app-footer {
+  border-top: 1px solid var(--border);
+  padding: 0.5rem 1.25rem;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  background: #05060a;
+}
+
+/* Responsive */
+
+@media (max-width: 800px) {
+  .app-body {
+    flex-direction: column;
+  }
+
+  .sidebar {
+    width: 100%;
+    display: flex;
+    overflow-x: auto;
+    overflow-y: hidden;
+    border-right: none;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .sidebar ul {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 0.25rem;
+  }
+
+  .nav-item {
+    white-space: nowrap;
+  }
+
+  .content {
+    padding: 0.75rem;
+  }
+
+  #content-section {
+    padding: 1rem;
+  }
+}
