@@ -1,4 +1,4 @@
-<!-- docs/chapters/chapter02historischerhintergrund.md -->
+<!-- docs/chapters/chapter02_historischer_hintergrund.md -->
 
 # Kapitel 2 – Historischer Hintergrund der Zeitmessung und Zeitzonen
 
