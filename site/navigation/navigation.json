@@ -74,6 +74,11 @@
       "label": "Diagramm – Zeitfeld-Architektur",
       "path": "../docs/diagrams/zeitfeld_architektur.txt",
       "icon": "assets/icons/diagram.svg"
+    },
+    {
+      "label": "Diagramm – Tensorstruktur",
+      "path": "../docs/diagrams/tensorstruktur_skizze.txt",
+      "icon": "assets/icons/diagram.svg"
     }
   ]
 }
