@@ -1,4 +1,4 @@
-<!-- docs/chapters/chapter07galaktischezeitfelder.md -->
+<!-- docs/chapters/chapter07_galaktische_zeitfelder.md -->
 
 # Kapitel 7 – Galaktische Zeitfelder und großskalige Zeitgradienten
 
